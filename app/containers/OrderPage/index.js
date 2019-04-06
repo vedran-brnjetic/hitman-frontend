@@ -72,7 +72,7 @@ class Album extends React.PureComponent {
       lng: 30.33,
     },
     zoom: 11,
-    text: "shoot here",
+    text: 'shoot here',
   };
 
   handleSubmit() {
@@ -103,9 +103,12 @@ class Album extends React.PureComponent {
             <div className={classes.heroContent}>
               <div style={{ height: '100vh', width: '100%' }}>
                 <GoogleMapReact
-                  bootstrapURLKeys={{ key: "AIzaSyCpyqha3WkhsC9gXKItadLBJXKsTrTW33U" }}
+                  bootstrapURLKeys={{
+                    key: 'AIzaSyCpyqha3WkhsC9gXKItadLBJXKsTrTW33U',
+                  }}
                   defaultCenter={this.props.center}
-                  defaultZoom={this.props.zoom}>
+                  defaultZoom={this.props.zoom}
+                >
                   <AnyReactComponent
                     lat={59.955413}
                     lng={30.337844}
@@ -122,7 +125,9 @@ class Album extends React.PureComponent {
             <form onSubmit={this.handleSubmit}>
               <Grid container spacing={16} justify="center">
                 <Grid item>
-                  <Dropzone onDrop={acceptedFiles => this.uploadFiles(acceptedFiles)}>
+                  <Dropzone
+                    onDrop={acceptedFiles => this.uploadFiles(acceptedFiles)}
+                  >
                     {({ getRootProps, getInputProps }) => (
                       <section>
                         <div {...getRootProps()}>
@@ -147,7 +152,8 @@ class Album extends React.PureComponent {
         {/* End footer */}
       </React.Fragment>
     );
-  }}
+  }
+}
 
 Album.propTypes = {
   classes: PropTypes.object.isRequired,

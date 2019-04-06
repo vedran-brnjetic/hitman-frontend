@@ -9,6 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
 import Dropzone from 'react-dropzone';
+import GoogleMapReact from 'google-map-react';
+
+const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 const styles = theme => ({
   appBar: {
@@ -58,71 +61,93 @@ const styles = theme => ({
   },
 });
 
-function Album(props) {
-  const { classes } = props;
+class Album extends React.PureComponent {
+  /* let center = {lat: 59.95, lng: 30.33};
+  let zoom = 11;
 
-  function handleSubmit() {
+  */
+  static defaultProps = {
+    center: {
+      lat: 59.95,
+      lng: 30.33,
+    },
+    zoom: 11,
+    text: "shoot here",
+  };
+
+  handleSubmit() {
     console.log('functioncall');
   }
 
-  return (
-    <React.Fragment>
-      <CssBaseline />
-      <AppBar position="static" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            HITMAN APP
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <main>
-        {/* Hero unit */}
-        <div className={classes.heroUnit}>
-          <div className={classes.heroContent}>
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="textPrimary"
-              gutterBottom
-            >
-              MAP GOES HERE
+  uploadFiles(files) {
+    console.log(files);
+  }
+
+  componentDidMount() {}
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        <AppBar position="static" className={classes.appBar}>
+          <Toolbar>
+            <Typography variant="h6" color="inherit" noWrap>
+              HITMAN APP
             </Typography>
+          </Toolbar>
+        </AppBar>
+        <main>
+          {/* Hero unit */}
+          <div className={classes.heroUnit}>
+            <div className={classes.heroContent}>
+              <div style={{ height: '100vh', width: '100%' }}>
+                <GoogleMapReact
+                  bootstrapURLKeys={{ key: "AIzaSyCpyqha3WkhsC9gXKItadLBJXKsTrTW33U" }}
+                  defaultCenter={this.props.center}
+                  defaultZoom={this.props.zoom}>
+                  <AnyReactComponent
+                    lat={59.955413}
+                    lng={30.337844}
+                    text="My Marker"
+                  />
+                </GoogleMapReact>
+              </div>
+            </div>
           </div>
-        </div>
-      </main>
-      {/* Footer */}
-      <footer className={classes.footer}>
-        <div className={classes.heroButtons}>
-          <form onSubmit={handleSubmit}>
-            <Grid container spacing={16} justify="center">
-              <Grid item>
-                <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
-                  {({ getRootProps, getInputProps }) => (
-                    <section>
-                      <div {...getRootProps()}>
-                        <input {...getInputProps()} />
-                        <Button variant="contained" color="primary">
-                          <CameraIcon className={classes.icon} />
-                        </Button>
-                      </div>
-                    </section>
-                  )}
-                </Dropzone>
+        </main>
+        {/* Footer */}
+        <footer className={classes.footer}>
+          <div className={classes.heroButtons}>
+            <form onSubmit={this.handleSubmit}>
+              <Grid container spacing={16} justify="center">
+                <Grid item>
+                  <Dropzone onDrop={acceptedFiles => this.uploadFiles(acceptedFiles)}>
+                    {({ getRootProps, getInputProps }) => (
+                      <section>
+                        <div {...getRootProps()}>
+                          <input {...getInputProps()} />
+                          <Button variant="contained" color="primary">
+                            <CameraIcon className={classes.icon} />
+                          </Button>
+                        </div>
+                      </section>
+                    )}
+                  </Dropzone>
+                </Grid>
+                <Grid item>
+                  <Button type="submit" variant="contained" color="primary">
+                    ORDER A HITMAN
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Button type="submit" variant="contained" color="primary">
-                  ORDER A HITMAN
-                </Button>
-              </Grid>
-            </Grid>
-          </form>
-        </div>
-      </footer>
-      {/* End footer */}
-    </React.Fragment>
-  );
-}
+            </form>
+          </div>
+        </footer>
+        {/* End footer */}
+      </React.Fragment>
+    );
+  }}
 
 Album.propTypes = {
   classes: PropTypes.object.isRequired,

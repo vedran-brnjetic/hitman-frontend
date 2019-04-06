@@ -9,6 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
+import GoogleMapReact from 'google-map-react';
+
+const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 const styles = theme => ({
   appBar: {
@@ -58,58 +61,83 @@ const styles = theme => ({
   },
 });
 
-function Album(props) {
-  const { classes } = props;
+class Album extends React.PureComponent {
+  /* let center = {lat: 59.95, lng: 30.33};
+  let zoom = 11;
 
-  return (
-    <React.Fragment>
-      <CssBaseline />
-      <AppBar position="static" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            HITMAN APP
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <main>
-        {/* Hero unit */}
-        <div className={classes.heroUnit}>
-          <div className={classes.heroContent}>
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="textPrimary"
-              gutterBottom
-            >
-              MAP GOES HERE
+  */
+  static defaultProps = {
+    center: {
+      lat: 59.95,
+      lng: 30.33,
+    },
+    zoom: 11,
+  };
+
+  componentDidMount() {}
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        <AppBar position="static" className={classes.appBar}>
+          <Toolbar>
+            <Typography variant="h6" color="inherit" noWrap>
+              HITMAN APP
             </Typography>
+          </Toolbar>
+        </AppBar>
+        <main>
+          {/* Hero unit */}
+          <div className={classes.heroUnit}>
+            <div className={classes.heroContent}>
+              <Typography
+                component="h1"
+                variant="h2"
+                align="center"
+                color="textPrimary"
+                gutterBottom
+                <div style={{ height: '100vh', width: '100%' }}>
+                  <GoogleMapReact
+                    bootstrapURLKeys={{ key: "AIzaSyCpyqha3WkhsC9gXKItadLBJXKsTrTW33U" }}
+                    defaultCenter={this.props.center}
+                    defaultZoom={this.props.zoom}>
+                  >
+                    <AnyReactComponent
+                      lat={59.955413}
+                      lng={30.337844}
+                      text="My Marker"
+                    />
+                  </GoogleMapReact>
+                </div>
+              </Typography>
+            </div>
           </div>
-        </div>
-      </main>
-      {/* Footer */}
-      <footer className={classes.footer}>
-        <div className={classes.heroButtons}>
-          <Grid container spacing={16} justify="center">
-            <Grid item>
-              <Button variant="contained" color="primary">
-                <CameraIcon className={classes.icon} />
-              </Button>
-            </Grid>
-            <Grid item>
-              <Link to="/camera">
+        </main>
+        {/* Footer */}
+        <footer className={classes.footer}>
+          <div className={classes.heroButtons}>
+            <Grid container spacing={16} justify="center">
+              <Grid item>
                 <Button variant="contained" color="primary">
-                  ORDER A HITMAN
+                  <CameraIcon className={classes.icon} />
                 </Button>
-              </Link>
+              </Grid>
+              <Grid item>
+                <Link to="/camera">
+                  <Button variant="contained" color="primary">
+                    ORDER A HITMAN
+                  </Button>
+                </Link>
+              </Grid>
             </Grid>
-          </Grid>
-        </div>
-      </footer>
-      {/* End footer */}
-    </React.Fragment>
-  );
-}
+          </div>
+        </footer>
+        {/* End footer */}
+      </React.Fragment>
+    );
+  }}
 
 Album.propTypes = {
   classes: PropTypes.object.isRequired,

@@ -9,9 +9,14 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
+import Room from '@material-ui/icons/Room';
 import GoogleMapReact from 'google-map-react';
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+const AnyReactComponent = ({ text }) => (
+  <div>
+    <Room className="icon" /> {text}
+  </div>
+);
 AnyReactComponent.propTypes = {
   text: PropTypes.any,
 };
@@ -67,8 +72,8 @@ const styles = theme => ({
 class Album extends React.PureComponent {
   static defaultProps = {
     center: {
-      lat: 59.95,
-      lng: 30.33,
+      lat: 59.3948671,
+      lng: 24.6592121,
     },
     zoom: 11,
     text: 'Shoot here',
@@ -101,9 +106,9 @@ class Album extends React.PureComponent {
                   defaultZoom={this.props.zoom}
                 >
                   <AnyReactComponent
-                    lat={59.955413}
-                    lng={30.337844}
-                    text="My Marker"
+                    lat={59.3948671}
+                    lng={24.6592121}
+                    text="Shoot me"
                   />
                 </GoogleMapReact>
               </div>

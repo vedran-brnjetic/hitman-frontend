@@ -12,6 +12,9 @@ import CameraIcon from '@material-ui/icons/PhotoCamera';
 import GoogleMapReact from 'google-map-react';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
+AnyReactComponent.propTypes = {
+  text: PropTypes.any,
+};
 
 const styles = theme => ({
   appBar: {
@@ -66,12 +69,19 @@ class Album extends React.PureComponent {
   let zoom = 11;
 
   */
+  get propTypes() {
+    return {
+      text: PropTypes.any,
+    };
+  }
+
   static defaultProps = {
     center: {
       lat: 59.95,
       lng: 30.33,
     },
     zoom: 11,
+    text: 'Shoot here',
   };
 
   componentDidMount() {}
@@ -92,26 +102,21 @@ class Album extends React.PureComponent {
           {/* Hero unit */}
           <div className={classes.heroUnit}>
             <div className={classes.heroContent}>
-              <Typography
-                component="h1"
-                variant="h2"
-                align="center"
-                color="textPrimary"
-                gutterBottom
-                <div style={{ height: '100vh', width: '100%' }}>
-                  <GoogleMapReact
-                    bootstrapURLKeys={{ key: "AIzaSyCpyqha3WkhsC9gXKItadLBJXKsTrTW33U" }}
-                    defaultCenter={this.props.center}
-                    defaultZoom={this.props.zoom}>
-                  >
-                    <AnyReactComponent
-                      lat={59.955413}
-                      lng={30.337844}
-                      text="My Marker"
-                    />
-                  </GoogleMapReact>
-                </div>
-              </Typography>
+              <div style={{ height: '100vh', width: '100%' }}>
+                <GoogleMapReact
+                  bootstrapURLKeys={{
+                    key: 'AIzaSyCpyqha3WkhsC9gXKItadLBJXKsTrTW33U',
+                  }}
+                  defaultCenter={classes.center}
+                  defaultZoom={classes.zoom}
+                >
+                  <AnyReactComponent
+                    lat={59.955413}
+                    lng={30.337844}
+                    text="My Marker"
+                  />
+                </GoogleMapReact>
+              </div>
             </div>
           </div>
         </main>
@@ -137,7 +142,8 @@ class Album extends React.PureComponent {
         {/* End footer */}
       </React.Fragment>
     );
-  }}
+  }
+}
 
 Album.propTypes = {
   classes: PropTypes.object.isRequired,

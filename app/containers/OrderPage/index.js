@@ -65,16 +65,6 @@ const styles = theme => ({
 });
 
 class Album extends React.PureComponent {
-  /* let center = {lat: 59.95, lng: 30.33};
-  let zoom = 11;
-
-  */
-  get propTypes() {
-    return {
-      text: PropTypes.any,
-    };
-  }
-
   static defaultProps = {
     center: {
       lat: 59.95,
@@ -107,8 +97,8 @@ class Album extends React.PureComponent {
                   bootstrapURLKeys={{
                     key: 'AIzaSyCpyqha3WkhsC9gXKItadLBJXKsTrTW33U',
                   }}
-                  defaultCenter={classes.center}
-                  defaultZoom={classes.zoom}
+                  defaultCenter={this.props.center}
+                  defaultZoom={this.props.zoom}
                 >
                   <AnyReactComponent
                     lat={59.955413}
@@ -147,6 +137,8 @@ class Album extends React.PureComponent {
 
 Album.propTypes = {
   classes: PropTypes.object.isRequired,
+  center: PropTypes.any,
+  zoom: PropTypes.any,
 };
 
 export default withStyles(styles)(Album);

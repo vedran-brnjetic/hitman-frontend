@@ -7,8 +7,8 @@ import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
+import Dropzone from 'react-dropzone';
 
 const styles = theme => ({
   appBar: {
@@ -61,6 +61,10 @@ const styles = theme => ({
 function Album(props) {
   const { classes } = props;
 
+  function handleSubmit() {
+    console.log('functioncall');
+  }
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -90,20 +94,29 @@ function Album(props) {
       {/* Footer */}
       <footer className={classes.footer}>
         <div className={classes.heroButtons}>
-          <Grid container spacing={16} justify="center">
-            <Grid item>
-              <Button variant="contained" color="primary">
-                <CameraIcon className={classes.icon} />
-              </Button>
-            </Grid>
-            <Grid item>
-              <Link to="/camera">
-                <Button variant="contained" color="primary">
+          <form onSubmit={handleSubmit}>
+            <Grid container spacing={16} justify="center">
+              <Grid item>
+                <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
+                  {({ getRootProps, getInputProps }) => (
+                    <section>
+                      <div {...getRootProps()}>
+                        <input {...getInputProps()} />
+                        <Button variant="contained" color="primary">
+                          <CameraIcon className={classes.icon} />
+                        </Button>
+                      </div>
+                    </section>
+                  )}
+                </Dropzone>
+              </Grid>
+              <Grid item>
+                <Button type="submit" variant="contained" color="primary">
                   ORDER A HITMAN
                 </Button>
-              </Link>
+              </Grid>
             </Grid>
-          </Grid>
+          </form>
         </div>
       </footer>
       {/* End footer */}

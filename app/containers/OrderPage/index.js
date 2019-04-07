@@ -9,9 +9,17 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
 import Dropzone from 'react-dropzone';
+import Room from '@material-ui/icons/Room';
 import GoogleMapReact from 'google-map-react';
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+const AnyReactComponent = ({ text }) => (
+  <div>
+    <Room className="icon" /> {text}
+  </div>
+);
+AnyReactComponent.propTypes = {
+  text: PropTypes.any,
+};
 
 const styles = theme => ({
   appBar: {
@@ -62,17 +70,13 @@ const styles = theme => ({
 });
 
 class Album extends React.PureComponent {
-  /* let center = {lat: 59.95, lng: 30.33};
-  let zoom = 11;
-
-  */
   static defaultProps = {
     center: {
-      lat: 59.95,
-      lng: 30.33,
+      lat: 59.3948671,
+      lng: 24.6592121,
     },
     zoom: 11,
-    text: 'shoot here',
+    text: 'Shoot here',
   };
 
   handleSubmit() {
@@ -84,6 +88,10 @@ class Album extends React.PureComponent {
   }
 
   componentDidMount() {}
+
+  mapOnClick(obj) {
+    console.log(obj.lat, obj.lng);
+  }
 
   render() {
     const { classes } = this.props;
@@ -103,6 +111,7 @@ class Album extends React.PureComponent {
             <div className={classes.heroContent}>
               <div style={{ height: '100vh', width: '100%' }}>
                 <GoogleMapReact
+                  onClick={this.mapOnClick}
                   bootstrapURLKeys={{
                     key: 'AIzaSyCpyqha3WkhsC9gXKItadLBJXKsTrTW33U',
                   }}
@@ -110,9 +119,9 @@ class Album extends React.PureComponent {
                   defaultZoom={this.props.zoom}
                 >
                   <AnyReactComponent
-                    lat={59.955413}
-                    lng={30.337844}
-                    text="My Marker"
+                    lat={this.props.center.lat}
+                    lng={this.props.center.lng}
+                    text="Shoot me"
                   />
                 </GoogleMapReact>
               </div>
@@ -157,6 +166,8 @@ class Album extends React.PureComponent {
 
 Album.propTypes = {
   classes: PropTypes.object.isRequired,
+  center: PropTypes.any,
+  zoom: PropTypes.any,
 };
 
 export default withStyles(styles)(Album);

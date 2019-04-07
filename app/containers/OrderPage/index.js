@@ -81,6 +81,10 @@ class Album extends React.PureComponent {
 
   componentDidMount() {}
 
+  mapOnClick(obj) {
+    console.log(obj.lat, obj.lng);
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -99,6 +103,7 @@ class Album extends React.PureComponent {
             <div className={classes.heroContent}>
               <div style={{ height: '100vh', width: '100%' }}>
                 <GoogleMapReact
+                  onClick={this.mapOnClick}
                   bootstrapURLKeys={{
                     key: 'AIzaSyCpyqha3WkhsC9gXKItadLBJXKsTrTW33U',
                   }}
@@ -106,8 +111,8 @@ class Album extends React.PureComponent {
                   defaultZoom={this.props.zoom}
                 >
                   <AnyReactComponent
-                    lat={59.3948671}
-                    lng={24.6592121}
+                    lat={this.props.center.lat}
+                    lng={this.props.center.lng}
                     text="Shoot me"
                   />
                 </GoogleMapReact>
